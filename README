@@ -6,9 +6,11 @@ This one does.
 
 h1. Warning
 
-This is just the first checkin.  It's abstracted from a few projects of mine, and has a bunch of changes
-made, but the tests don't work, so I'm sure it's broken.  Don't use it.
+It's abstracted from a few projects of mine, and has a bunch of changes
+made, but the tests don't work.
 
 h1. License
 
 License under the MIT license terms.
+
+Copyright (c) 2009 Jon Moses & Jeff Dutil, released under the MIT license
