@@ -3,30 +3,42 @@ module Yarfmp
     FLASH_MESSAGE_LEVELS = [:error, :notice]
     FLASH_MESSAGE_KEY = :flash_messages
     
+    class Message
+      attr :message, :writable => true
+      attr :escape, :writable => true
+      
+      def initialize( message, escape = true )
+        @message = message
+        @escape = escape
+      end
+    end
+    
     module ControllerHelpers
      
-      def add_message( str )
-        add_flash_message(:notice, str)
+      def add_message( str, escape = true )
+        add_flash_message(:notice, str, escape)
       end
 
-      def add_error( str )
-        add_flash_message(:error, str)
+      def add_error( str, escape = true )
+        add_flash_message(:error, str, escape )
       end
             
       protected
 
-        def add_flash_message( level, str )
+        def add_flash_message( level, str, escape = true )
           return nil unless FLASH_MESSAGE_LEVELS.include?(level)
 
           logger.debug("#{self.class.name}:: Adding #{level} message: #{str}")
 
+          message = Message.new( str, escape )
+
           existing = (flash[FLASH_MESSAGE_KEY] ||= {})[level]
-          if existing and existing.is_a?(String)
-            existing = [existing, str].flatten
+          if existing and ! existing.is_a?(Array)
+            existing = [existing, message].flatten
           elsif existing and existing.is_a?(Array)
-            existing << str
+            existing << message
           elsif ! existing
-            existing = str
+            existing = message
           end
 
           flash[FLASH_MESSAGE_KEY][level] = existing
@@ -66,7 +78,11 @@ module Yarfmp
       end
 
       def escape_single( message )
-        h(message).gsub("\n", "<br/>")
+        if message.escape
+          h(message.message)
+        else
+          message.message
+        end.gsub("\n", "<br/>")
       end
       
       def has_flash_messages?
