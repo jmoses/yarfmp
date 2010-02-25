@@ -89,19 +89,19 @@ module Yarfmp
         flash[FLASH_MESSAGE_KEY] and ! flash[FLASH_MESSAGE_KEY].empty?
       end
     end
-  end
-  
-  module TestHelpers
-    def assert_error( msg )
-      assert_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
-    end
+    
+    module TestHelpers
+      def assert_error( msg )
+        assert_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
+      end
 
-    def assert_no_error( msg )
-      assert_not_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
-    end
+      def assert_no_error( msg )
+        assert_not_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
+      end
 
-    def assert_no_messages
-      assert_nil flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY]
+      def assert_no_messages
+        assert_nil flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY]
+      end
     end
   end
 end
