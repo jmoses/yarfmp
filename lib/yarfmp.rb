@@ -92,15 +92,23 @@ module Yarfmp
     
     module TestHelpers
       def assert_error( msg )
-        assert_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
+        assert_equal msg,  messages_to_basic(:error)
       end
 
       def assert_no_error( msg )
-        assert_not_equal msg, flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][:error].try(:message)
+        assert_not_equal msg, messages_to_basic(:error)
       end
 
       def assert_no_messages
         assert_nil flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY]
+      end
+      
+      def messages_to_basic( level )
+        message = flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][level]
+        if message.is_a? Array
+          message = messsage.collect(&:message)
+        end        
+        message
       end
     end
   end
