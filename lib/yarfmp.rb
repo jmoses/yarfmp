@@ -78,7 +78,7 @@ module Yarfmp
       end
 
       def escape_single( message )
-        if message.escape
+        if ! message.is_a?(Message) or message.escape
           h(message.message)
         else
           message.message
