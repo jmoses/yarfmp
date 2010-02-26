@@ -108,7 +108,7 @@ module Yarfmp
         if message.is_a? Array
           message = messsage.collect(&:message)
         end        
-        message
+        message.try(:message)
       end
     end
   end
