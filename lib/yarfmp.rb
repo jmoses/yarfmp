@@ -106,7 +106,7 @@ module Yarfmp
       def messages_to_basic( level )
         message = flash[Yarfmp::FlashMessages::FLASH_MESSAGE_KEY][level]
         if message.is_a? Array
-          message = messsage.collect(&:message)
+          message = message.collect(&:message)
         end        
         message.try(:message)
       end
