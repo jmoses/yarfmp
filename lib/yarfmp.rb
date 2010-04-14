@@ -91,12 +91,40 @@ module Yarfmp
     end
     
     module TestHelpers
-      def assert_error( msg )
-        assert_equal msg,  messages_to_basic(:error)
-      end
+      # def self.included( base )
+      #   FLASH_MESSAGE_LEVELS.each do |level|
+      #     define_method("assert_#{level.to_s}") do |message|
+      #       assert_message_present( message, level )
+      #     end
+      #     
+      #     define_method("assert_no_#{level.to_s}") do |message|
+      #       assert_message_not_present( message, level )
+      #     end
+      #   end
+      # end
 
-      def assert_no_error( msg )
-        assert_not_equal msg, messages_to_basic(:error)
+      def assert_error( message )
+        assert_message_present( message, :error )
+      end
+      
+      def assert_no_error( message )
+        assert_message_not_present( message, :error )
+      end
+      
+      def assert_notice(message)
+        assert_message_present( message, :notice )
+      end
+      
+      def assert_no_notice( message )
+        assert_message_not_present( message, :notice)
+      end
+      
+      def assert_message_present( message, level )
+        assert_equal msg,  messages_to_basic(level)
+      end
+      
+      def assert_message_not_present( message, level )
+        assert_not_equal msg,  messages_to_basic(level)
       end
 
       def assert_no_messages

@@ -46,6 +46,10 @@ class YarfmpTest < ActiveSupport::TestCase
         should "render a list with the message as an li" do
           assert_single_message @message, @helper.render_flash_messages
         end        
+        
+        should "use the test helper properly" do
+          assert_notice(@message)
+        end
       end
       
       context "with plain text and line breaks" do
