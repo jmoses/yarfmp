@@ -120,11 +120,11 @@ module Yarfmp
       end
       
       def assert_message_present( message, level )
-        assert_equal msg,  messages_to_basic(level)
+        assert_equal message,  messages_to_basic(level)
       end
       
       def assert_message_not_present( message, level )
-        assert_not_equal msg,  messages_to_basic(level)
+        assert_not_equal message,  messages_to_basic(level)
       end
 
       def assert_no_messages
